@@ -9,6 +9,31 @@ function sanitize_input($data) {
     return htmlspecialchars(stripslashes(trim($data)));
 }
 
+// Function to validate the uploaded file
+function validate_upload($file) {
+    $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    $maxFileSize = 5 * 1024 * 1024; // 5 MB
+
+    $fileMimeType = mime_content_type($file['tmp_name']);
+    $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $fileSize = $file['size'];
+
+    if (!in_array($fileMimeType, $allowedMimeTypes)) {
+        return "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
+    }
+
+    if (!in_array($fileExtension, $allowedExtensions)) {
+        return "Invalid file extension. Only jpg, jpeg, png, and gif are allowed.";
+    }
+
+    if ($fileSize > $maxFileSize) {
+        return "File size exceeds the maximum limit of 5MB.";
+    }
+
+    return null;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Collect form data
     $name = sanitize_input($_POST['name'] ?? '');
@@ -22,8 +47,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // File upload handling
     $photo = "";
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
-        $photo = 'uploads/' . basename($_FILES['photo']['name']);
-        move_uploaded_file($_FILES['photo']['tmp_name'], $photo);
+        $uploadError = validate_upload($_FILES['photo']);
+        if ($uploadError) {
+            die($uploadError);
+        }
+
+        $targetDirectory = '../../uploads/';
+        if (!is_dir($targetDirectory)) {
+            mkdir($targetDirectory, 0777, true);
+        }
+
+        $photo = $targetDirectory . uniqid() . '-' . basename($_FILES['photo']['name']);
+        if (!move_uploaded_file($_FILES['photo']['tmp_name'], $photo)) {
+            die("Error uploading file.");
+        }
     }
 
     // Validate passwords
@@ -57,12 +94,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($stmt->execute()) {
-            echo "Registration successful!";
+            echo "Registered successfully.";
+            // Optionally redirect to a different page
+            header("Location: ../../views/login2.php");
+            exit;
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error registering: " . $stmt->error;
         }
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error registering: " . $stmt->error;
     }
 
     // Close statements and connection

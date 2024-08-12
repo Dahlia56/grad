@@ -1,3 +1,8 @@
+
+
+
+
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -16,12 +21,12 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-        <link rel="stylesheet" href="../views/css/home.css">
+        <link rel="stylesheet" href="../views/css/home2.css">
     </head>
 
     <body class="index-page">
         <header id="header" class="header d-flex align-items-center sticky-top">
-          <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <a href="home.php" class="logo d-flex align-items-center me-auto">
             <img src="../views/img/logo.png" class="logo-img">
         </a>
             <!-- navbar  -->
@@ -33,7 +38,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                            <li class="nav-item"><a href="home.php" class="nav-link active">Home</a></li>
                             <li class="nav-item"><a href="#b1" class="nav-link">About</a></li>
                             <li class="nav-item"><a href="#b2" class="nav-link">Events</a></li>
                             <li class="nav-item"><a href="#b3" class="nav-link">Contact</a></li>
@@ -56,13 +61,14 @@
             <!--  first Section -->
             <section id="first" class="first section">
         
-              <img src="" alt="" data-aos="fade-in">
+              <img src="../views/img/sAcademic.jpg" alt="" data-aos="fade-in">
         
               <div class="container">
                 <h2 data-aos="fade-up" data-aos-delay="100" class="">Welcome to<br>the UMP Alumni Connect</h2>
                 <p data-aos="fade-up" data-aos-delay="200">Unleash the Power of Connection - Where Memories Meet the Future!</p>
                 <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
-                  <a href="courses.html" class="btn-get-started">Get Started</a>
+                  <a href="courses.html" class="btn-get-started" data-bs-toggle="modal" data-bs-target="#Modal">Get Started</a>
+                 
                 </div>
               </div>
         
@@ -72,16 +78,16 @@
             <!-- About Section -->
     <section id="about" class="about section">
 
-      <div class="container">
+      <div  class="container">
 
         <div class="row gy-4">
 
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="" class="img-fluid border-image" alt="">
+          <div id="b1" class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
+            <img src="../views/img/sGraduation3.png" class="img-fluid border-image" alt="">
           </div>
 
           <div class="col-lg-6 order-2 order-lg-1 content" data-aos="fade-up" data-aos-delay="200">
-            <h3 id="b1">About Us</h3>
+            <h3 >About Us</h3>
             <p class="fst-italic">
               Welcome to GradConnect, the ultimate hub for University  of Mpumalanga alumni to reignite old friendships and forge  new connections.
 
@@ -99,7 +105,11 @@
    
     </section><!-- /About Section -->
 
-
+ <!-- Section Title -->
+ <div class="container section-title" data-aos="fade-up">
+       <h2 id="b2">News</h2>
+       <p class="">Recent News</p>
+     </div><!-- End Section Title -->
     <!-- News Section -->
     <section id="News" class="section News">
 
@@ -107,48 +117,7 @@
 
        <div class="row gy-4">
 
-         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-           <div class="News-box">
-             <h3>Latest News </h3>
-             <p>
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-               Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
-             </p>
-             <div class="text-center">
-               <a href="#" class="more-btn"><span>Learn More</span> <i class="bi bi-chevron-right"></i></a>
-             </div>
-           </div>
-         </div><!-- End News Box -->
-
-         <div class="col-lg-8 d-flex align-items-stretch">
-           <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
-
-             <div class="col-xl-4">
-               <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                 <i class="bi bi-clipboard-data"></i>
-                 <h4>Corporis voluptates officia eiusmod</h4>
-                 <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
-               </div>
-             </div><!-- End Icon Box -->
-
-             <div class="col-xl-4" data-aos="fade-up" data-aos-delay="300">
-               <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                 <i class="bi bi-gem"></i>
-                 <h4>Ullamco laboris ladore pan</h4>
-                 <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-               </div>
-             </div><!-- End Icon Box -->
-
-             <div class="col-xl-4" data-aos="fade-up" data-aos-delay="400">
-               <div class="icon-box d-flex flex-column justify-content-center align-items-center">
-                 <i class="bi bi-inboxes"></i>
-                 <h4>Labore consequatur incidid dolore</h4>
-                 <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-               </div>
-             </div><!-- End Icon Box -->
-
-           </div>
-         </div>
+       <?php include '../controller/Alumni/news.php'; ?>
 
        </div>
 
@@ -224,56 +193,7 @@
 
        <div class="row">
 
-         <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-           <div class="events-item">
-             <img src="" class="img-fluid" alt="...">
-             <div class="events-content">
-               <div class="d-flex justify-content-between align-items-center mb-3">
-                 <p class="category">Web Development</p>
-                
-               </div>
-
-               <h3><a href="course-details.html">Website Design</a></h3>
-               <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-               
-             </div>
-           </div>
-         </div>  <!-- End events Item-->
-
-         <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-           <div class="events-item">
-             <img src="" class="img-fluid" alt="...">
-             <div class="events-content">
-               <div class="d-flex justify-content-between align-items-center mb-3">
-                 <p class="category">Web Development</p>
-                
-               </div>
-
-               <h3><a href="course-details.html">Website Design</a></h3>
-               <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-              
-             </div>
-           </div>
-         </div>  <!-- End events Item-->
-
-         <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-           <div class="events-item">
-             <img src="/resources/media/sAcademic.jpg" class="img-fluid" alt="...">
-             <div class="events-content">
-               <div class="d-flex justify-content-between align-items-center mb-3">
-                 <p class="category">Web Development</p>
-                
-               </div>
-
-               <h3><a href="course-details.html">Website Design</a></h3>
-               <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
-              
-                
-               </div>
-             </div>
-           </div>
-         </div>  <!-- End events Item-->
-
+       <?php include '../controller/Alumni/events.php'; ?>
        </div>
 
      </div>
@@ -336,13 +256,13 @@
              <div class="row gy-4">
                <div class="col-lg-4 col-md-6 footer-about">
                  <a href="index.html" class="logo d-flex align-items-center">
-                   <span class="sitename"><img src="" alt=""></span>
+                   <span class="sitename"><img src="../views/img/logo.png" alt=""></span>
                  </a>
                  <div class="footer-contact pt-3">
-                   <p>A108 Adam Street</p>
-                   <p>New York, NY 535022</p>
-                   <p id="b3" class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                   <p><strong>Email:</strong> <span>info@example.com</span></p>
+                
+                   <p>Mbombela,Mpumalanga</p>
+                   <p id="b3" class="mt-3"><strong>Phone:</strong> <span>06734567842</span></p>
+                   <p><strong>Email:</strong> <span>GradConnect@ump.ac.za</span></p>
                  </div>
                  <div class="social-links d-flex mt-4">
                    <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -386,7 +306,7 @@
                <!-- You can delete the links only if you've purchased the pro version. -->
                <!-- Licensing information: https://bootstrapmade.com/license/ -->
                <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-               Designed by <a href="https://bootstrapmade.com/">GradConnect</a>
+               Designed by <a href="">GradConnect</a>
              </div>
            </div>
        

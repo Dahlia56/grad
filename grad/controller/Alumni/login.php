@@ -14,50 +14,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = sanitize_input($_POST['password']);
 
     // Prepare and bind statements to check user credentials
-    $stmt = $conn->prepare("SELECT id, password_hash, role_id FROM Users WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, password_hash, role_id, name, surname, email, about, education, skills, job, company FROM Users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $stmt->store_result();
 
+    if ($stmt->num_rows === 1) {
+        $stmt->bind_result($userId, $passwordHash, $roleId, $name, $surname, $email, $about, $education, $skills, $job, $company);
+        $stmt->fetch();
 
-    $row = $result->fetch_assoc();
-        if ($row && password_verify($password, $row['password_hash'])) {
-            session_start();
-            $_SESSION['id'] = $row['id'];
-            header("Location: ../../../views/Staff_dash.php");
-        }
-     return false;
-   /* $stmt->store_result();
+        // Verify password
+        if (password_verify($password, $passwordHash)) {
+            // Set session variables
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['role_id'] = $roleId;
+            $_SESSION['user_name'] = $name;
+            $_SESSION['user_surname'] = $surname;
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_about'] = $about;
+            $_SESSION['user_education'] = $education;
+            $_SESSION['user_skills'] = $skills;
+            $_SESSION['user_job'] = $job;
+            $_SESSION['user_company'] = $company;
 
-    $row=$stmt->fetch();
-    if ($row){
-        if ($row['role_id']==1){
-            if (password_verify($password, $passwordHash)) {
-                // Set session variables
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['role_id'] = $roleId;
-    
-                // Redirect based on role
-                if ($roleId == 1) { // Alumni
-                    header("Location: /views/Alumni_dash.php");
-                } elseif ($roleId == 2) { // Staff
-                    header("Location: ../../../views/Staff_dash.php");
-                }
-                exit();
-            } else {
-                $error = "Invalid password.";
+            // Redirect based on role
+            if ($roleId == 1) { // Alumni
+                header("Location: ../../views/public/Alumni_dash.php");
+            } elseif ($roleId == 2) { // Staff
+                header("Location: ../../views/public/Staff_dash.php");
             }
-
+            exit();
+        } else {
+            $error = "Invalid password.";
         }
-    }*/
-
-   
+    } else {
+        $error = "No user found with this email.";
+    }
 
     // Close statement
     $stmt->close();
 }
-
-
 
 // Close connection
 $conn->close();
